@@ -4,7 +4,7 @@ from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 from io import BytesIO
 import numpy as np
 import soundfile as sf
-import sounddevice as sd
+#import sounddevice as sd
 from PyPDF2 import PdfFileReader
 from docx import Document
 from odf.opendocument import load
