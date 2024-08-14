@@ -50,16 +50,16 @@ def transcribe_audio(audio_bytes):
         st.error(f"Error transcribing audio: {e}")
         return None
 
-def record_audio(duration=5, samplerate=16000):
-    try:
-        st.write("Recording...")
-        audio = sd.rec(int(duration * samplerate), samplerate=samplerate, channels=1, dtype='float32')
-        sd.wait()
-        st.write("Recording finished.")
-        return audio.flatten(), samplerate
-    except Exception as e:
-        st.error(f"Error recording audio: {e}")
-        return None, None
+# def record_audio(duration=5, samplerate=16000):
+#     try:
+#         st.write("Recording...")
+#         audio = sd.rec(int(duration * samplerate), samplerate=samplerate, channels=1, dtype='float32')
+#         sd.wait()
+#         st.write("Recording finished.")
+#         return audio.flatten(), samplerate
+#     except Exception as e:
+#         st.error(f"Error recording audio: {e}")
+#         return None, None
 
 def process_pdf(file):
     try:
@@ -112,19 +112,19 @@ if option == "Upload Audio File":
             st.write("Transcription:")
             st.write(transcription)
 
-elif option == "Record Audio":
-    duration = st.slider("Duration (seconds)", 1, 60, 5)
-    if st.button("Start Recording"):
-        audio, samplerate = record_audio(duration=duration)
-        if audio is not None:
-            audio_buffer = BytesIO()
-            sf.write(audio_buffer, audio, samplerate, format='wav')
-            audio_buffer.seek(0)
-            st.audio(audio_buffer, format='audio/wav', sample_rate=samplerate)
-            transcription = transcribe_audio(audio_buffer.getvalue())
-            if transcription:
-                st.write("Transcription:")
-                st.write(transcription)
+# elif option == "Record Audio":
+#     duration = st.slider("Duration (seconds)", 1, 60, 5)
+#     if st.button("Start Recording"):
+#         audio, samplerate = record_audio(duration=duration)
+#         if audio is not None:
+#             audio_buffer = BytesIO()
+#             sf.write(audio_buffer, audio, samplerate, format='wav')
+#             audio_buffer.seek(0)
+#             st.audio(audio_buffer, format='audio/wav', sample_rate=samplerate)
+#             transcription = transcribe_audio(audio_buffer.getvalue())
+#             if transcription:
+#                 st.write("Transcription:")
+#                 st.write(transcription)
 
 elif option == "Type Text":
     input_text = st.text_area("Enter text here")
